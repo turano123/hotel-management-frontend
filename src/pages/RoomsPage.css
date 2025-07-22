@@ -1,0 +1,197 @@
+/* Genel Sayfa Yapısı */
+.rooms-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* Başlık */
+.rooms-container h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 26px;
+  margin-bottom: 16px;
+}
+
+/* Yeni Oda Ekle Butonu */
+.add-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+.add-button:hover {
+  background-color: #c82333;
+}
+
+/* Oda Ekleme Formu */
+.room-form {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.room-form input,
+.room-form select {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Checkbox ve Select Grupları */
+.checkbox-row {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.checkbox-row label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+/* Form Bölüm Başlıkları */
+.section-title {
+  grid-column: 1 / -1;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+/* Kaydet Butonu */
+.button-row {
+  grid-column: 1 / -1;
+  text-align: right;
+}
+.save-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+.save-button:hover {
+  background-color: #218838;
+}
+
+/* Oda Tablosu */
+.rooms-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  font-size: 14px;
+}
+.rooms-table th,
+.rooms-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+.rooms-table th {
+  background-color: #f2f2f2;
+  font-weight: 600;
+}
+.rooms-table tbody tr:hover {
+  background-color: #fafafa;
+}
+
+/* Bilgilendirme Metni */
+.rooms-container p {
+  margin-top: 20px;
+  font-style: italic;
+  color: #555;
+}
+
+/* İşlem Hücresi */
+.action-cell {
+  position: relative;
+}
+.menu-trigger {
+  background: #eee;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+/* Açılır Menü */
+.action-menu {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 1000;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+}
+.action-menu button {
+  padding: 8px 10px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+}
+.action-menu button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Satışa Kapama Modalı */
+.sale-modal-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.15);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sale-modal {
+  background: #fff;
+  border-radius: 10px;
+  padding: 32px 24px;
+  min-width: 320px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 768px) {
+  .room-form {
+    grid-template-columns: 1fr;
+  }
+  .checkbox-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .button-row {
+    text-align: center;
+  }
+  .rooms-table th,
+  .rooms-table td {
+    padding: 8px;
+    font-size: 12px;
+  }
+}

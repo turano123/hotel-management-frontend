@@ -1,0 +1,150 @@
+.availability-container {
+  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+}
+
+/* Filtre alanı */
+.filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.filters select,
+.filters input[type="text"] {
+  padding: 10px 14px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.filters select:focus,
+.filters input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Takvim */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-top: 30px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-header {
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  padding: 6px 0;
+}
+
+.calendar-cell {
+  height: 60px;
+  border-radius: 6px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  position: relative;
+}
+
+.calendar-cell.empty {
+  background-color: #f4f4f4;
+}
+
+.calendar-cell.full {
+  background-color: #ffdddd;
+  color: #b30000;
+  font-weight: bold;
+}
+
+/* Küçük not göstergesi */
+.note-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #000;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+}
+
+/* Rezervasyon tablosu */
+.availability-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.availability-table th {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  font-size: 15px;
+  text-align: left;
+}
+
+.availability-table td {
+  padding: 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.status-full {
+  background-color: #ffe5e5;
+  color: #cc0000;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+}
+
+/* İşlem butonları */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-buttons button {
+  padding: 6px 10px;
+  font-size: 13px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.action-buttons .edit {
+  background-color: #007bff;
+  color: white;
+}
+
+.action-buttons .edit:hover {
+  background-color: #0056b3;
+}
+
+.action-buttons .delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.action-buttons .delete:hover {
+  background-color: #c82333;
+}

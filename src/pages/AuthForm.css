@@ -1,0 +1,119 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.auth-form {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 520px;
+  box-sizing: border-box;
+}
+
+.auth-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.auth-form input,
+.auth-form textarea,
+.auth-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.auth-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.auth-form input[type="file"] {
+  border: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.auth-form label {
+  font-size: 0.9em;
+  display: block;
+  margin: 4px 0 6px;
+  font-weight: bold;
+  color: #444;
+}
+
+.auth-form .row {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.auth-form .row > input {
+  flex: 1;
+}
+
+.auth-form .file-upload {
+  background: #f9f9f9;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  color: #333;
+}
+
+.auth-form select {
+  background: white;
+  cursor: pointer;
+}
+
+.auth-button {
+  width: 100%;
+  background-color: #d23c3c;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.auth-button:hover {
+  background-color: #b93030;
+}
+
+.auth-error {
+  color: #d23c3c;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.auth-success {
+  color: #28a745;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.auth-switch {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 14px;
+}

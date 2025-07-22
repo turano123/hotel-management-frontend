@@ -1,0 +1,34 @@
+.app-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+.content-wrapper {
+  flex: 1;
+  margin-left: 220px;
+  padding: 30px;
+  background: #fff;
+  min-height: 100vh;
+  transition: margin-left 0.3s;
+}
+.sidebar.closed ~ .content-wrapper {
+  margin-left: 60px;
+}
+@media (max-width: 700px) {
+  .content-wrapper {
+    margin-left: 0;
+  }
+}
+.logout-button {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-top: 20px;
+  width: 100%;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.logout-button:hover {
+  background-color: #c9302c;
+}

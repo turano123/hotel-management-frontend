@@ -1,0 +1,63 @@
+/* src/styles/MainLayout.css */
+.app-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background: #fff;
+}
+
+.sidebar {
+  width: 240px;
+  background: #d83b4d;
+  color: #fff;
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.content-wrapper {
+  margin-left: 240px;
+  padding: 40px 32px;
+  width: 100%;
+  min-height: 100vh;
+  background: #fff;
+}
+/* MainLayout.css */
+
+.app-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background: #f7f7f7;
+}
+
+.sidebar-wrapper, .sidebar {
+  min-width: 240px;
+  max-width: 280px;
+  background: #dc3952;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  flex: 1;
+  padding: 40px 32px;
+  background: #fff;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .app-wrapper {
+    flex-direction: column;
+  }
+  .sidebar-wrapper, .sidebar {
+    min-width: 100vw;
+    max-width: 100vw;
+    min-height: auto;
+    height: auto;
+  }
+  .content-wrapper {
+    padding: 18px 8px;
+  }
+}
