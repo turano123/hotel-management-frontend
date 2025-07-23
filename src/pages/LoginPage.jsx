@@ -17,14 +17,16 @@ function LoginPage() {
     try {
       const response = await api.post('/auth/login', { email, password });
 
-      // ✅ Token'ı önce kaydet
+      // ✅ Token'ı ve kullanıcı bilgilerini kaydet
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify({ email: response.data.email }));
+      localStorage.setItem('user', JSON.stringify({
+        email: response.data.email,
+        name: response.data.name,
+        userId: response.data.userId
+      }));
 
-      // ✅ Sonra 100ms gecikmeli yönlendir
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 100);
+      // ✅ Başarılı girişte yönlendir
+      navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.msg || 'Giriş başarısız.');
     }

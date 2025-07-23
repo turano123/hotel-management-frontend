@@ -1,16 +1,18 @@
-// src/api/axiosInstance.js
+// 📁 src/api/axiosInstance.js
 import axios from 'axios';
 
+// ✅ API için temel ayar – .env'den alınan URL
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL + '/api', // .env'den backend url alıyoruz
+  baseURL: process.env.REACT_APP_API_URL + '/api',
+  withCredentials: true, // 🧠 Token ile birlikte cookie gönderimi için
 });
 
-// Token ekleme interceptor
+// ✅ İstek öncesi token ekleyen interceptor
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
   },
