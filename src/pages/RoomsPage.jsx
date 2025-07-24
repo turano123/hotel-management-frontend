@@ -71,7 +71,8 @@ function RoomsPage() {
 
   const handleAddRoom = async () => {
     try {
-      const response = await api.post('/rooms', { ...newRoom, userId });
+      const payload = { ...newRoom, userId };
+      const response = await api.post('/rooms', payload);
       setRooms(prev => [...prev, response.data]);
       setNewRoom({
         roomNo: '',
@@ -110,6 +111,7 @@ function RoomsPage() {
       setShowForm(false);
     } catch (error) {
       console.error('Oda eklenemedi:', error);
+      alert('Oda eklenemedi. Lütfen eksik alanları kontrol edin.');
     }
   };
 
@@ -141,6 +143,13 @@ function RoomsPage() {
       }
     })();
   }, [userId]);
+
+  return (
+    <div className="rooms-container">
+      {/* tüm JSX burada devam ediyor */}
+    </div>
+  );
+
 
   return (
     <div className="rooms-container">
