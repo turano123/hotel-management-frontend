@@ -25,7 +25,7 @@ function DashboardPage() {
   };
 
   const today = normalizeDate(new Date());
-  const userId = localStorage.getItem('userId'); // 🔑 Kullanıcı ID alındı
+  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -41,8 +41,8 @@ function DashboardPage() {
     const fetchData = async () => {
       try {
         const [resRooms, resReservations] = await Promise.all([
-          api.get(`/rooms?userId=${userId}`), // 🎯 Kullanıcıya özel odalar
-          api.get(`/reservations?userId=${userId}`), // 🎯 Kullanıcıya özel rezervasyonlar
+          api.get(`/rooms?userId=${userId}`),
+          api.get(`/reservations?userId=${userId}`),
         ]);
         setRooms(resRooms.data);
         setReservations(resReservations.data);
