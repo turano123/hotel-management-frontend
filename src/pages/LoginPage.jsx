@@ -17,13 +17,16 @@ function LoginPage() {
     try {
       const response = await api.post('/auth/login', { email, password });
 
-      // ✅ Token'ı ve kullanıcı bilgilerini kaydet
+      // ✅ Token ve kullanıcı bilgilerini kaydet
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify({
         email: response.data.email,
         name: response.data.name,
         userId: response.data.userId
       }));
+
+      // ✅ userId ayrı olarak kaydedildi
+      localStorage.setItem('userId', response.data.userId);
 
       // ✅ Başarılı girişte yönlendir
       navigate('/dashboard');
