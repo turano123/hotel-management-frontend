@@ -44,14 +44,23 @@ function DashboardPage() {
           api.get(`/rooms?userId=${userId}`),
           api.get(`/reservations?userId=${userId}`),
         ]);
+
+        console.log('🔄 Oda Verileri:', resRooms.data);
+        console.log('🔄 Rezervasyon Verileri:', resReservations.data);
+
         setRooms(resRooms.data);
         setReservations(resReservations.data);
       } catch (err) {
-        console.error('Veriler alınamadı:', err);
+        console.error('❌ Veriler alınamadı:', err.response?.data || err.message);
       }
     };
 
-    if (userId) fetchData();
+    if (userId) {
+      console.log('✅ Kullanıcı ID:', userId);
+      fetchData();
+    } else {
+      console.warn('⚠️ userId localStorage içinde bulunamadı!');
+    }
   }, [userId]);
 
   const todaysCheckIns = reservations.filter(r => normalizeDate(r.checkIn) === today);
@@ -59,6 +68,13 @@ function DashboardPage() {
   const activeStays = reservations.filter(r =>
     normalizeDate(r.checkIn) <= today && normalizeDate(r.checkOut) > today
   );
+
+  useEffect(() => {
+    console.log('📅 Bugünün tarihi:', today);
+    console.log('📥 Bugünkü girişler:', todaysCheckIns);
+    console.log('📤 Bugünkü çıkışlar:', todaysCheckOuts);
+    console.log('🏨 Aktif konaklamalar:', activeStays);
+  }, [reservations]);
 
   const filteredReservations = selectedRoom
     ? reservations.filter(r => r.roomNo === selectedRoom)
