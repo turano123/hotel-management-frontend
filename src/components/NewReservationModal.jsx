@@ -27,7 +27,6 @@ function NewReservationModal({ date, selectedRoom, onClose, onReservationAdded, 
   });
 
   useEffect(() => {
-    console.log('📦 Gelen initialData:', initialData); // HATA YAKALAMA
     if (initialData) {
       setForm({
         ...initialData,
@@ -61,12 +60,27 @@ function NewReservationModal({ date, selectedRoom, onClose, onReservationAdded, 
 
   const handleSave = async () => {
     try {
+      // 1. Rezervasyonu kaydet
       const response = await api.post('/reservations', form);
       const saved = response.data;
+
+      // 2. Kapora varsa otomatik muhasebeye gönder
+      if (parseFloat(form.deposit) > 0) {
+        await api.post('/muhasebe/add', {
+          date: new Date(),
+          type: 'Gelir',
+          category: 'Kapora',
+          amount: parseFloat(form.deposit),
+          note: `${form.roomNo} no'lu rezervasyon kaporası`,
+          userId: localStorage.getItem('userId')
+        });
+      }
+
+      // 3. Local storage'e ekle
       const existing = JSON.parse(localStorage.getItem('reservations') || '[]');
       localStorage.setItem('reservations', JSON.stringify([...existing, saved]));
 
-      alert('✅ Rezervasyon başarıyla kaydedildi!');
+      alert('✅ Rezervasyon ve kapora başarıyla kaydedildi!');
       onReservationAdded && onReservationAdded(saved);
       onClose();
     } catch (err) {
@@ -76,7 +90,6 @@ function NewReservationModal({ date, selectedRoom, onClose, onReservationAdded, 
   };
 
   const handleUpdate = async () => {
-    console.log('🛠 Güncellenen form:', form); // HATA YAKALAMA
     if (!form._id) {
       alert("Rezervasyon ID'si eksik, güncelleme yapılamaz!");
       return;

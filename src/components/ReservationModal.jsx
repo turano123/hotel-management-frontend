@@ -17,6 +17,7 @@ function ReservationModal({ reservation: original, onClose, onUpdate, editable =
   const [finalPayment, setFinalPayment] = useState({ tl: 0, usd: 0, eur: 0 });
   const [takeAll, setTakeAll] = useState(false);
 
+  // 💡 useEffect sadece component seviyesinde kullanılmalı
   useEffect(() => {
     if (original) {
       setReservation({ ...original });
@@ -24,6 +25,17 @@ function ReservationModal({ reservation: original, onClose, onUpdate, editable =
       setExpenses(original.expenses || []);
     }
   }, [original]);
+
+  const refreshReservation = async () => {
+    try {
+      const response = await api.get(`/reservations/${original._id}`);
+      setReservation(response.data);
+      setNotes(response.data.notes || []);
+      setExpenses(response.data.expenses || []);
+    } catch (error) {
+      console.error("❌ Rezervasyon güncellenemedi:", error);
+    }
+  };
 
   if (!reservation) return null;
 
@@ -100,14 +112,37 @@ function ReservationModal({ reservation: original, onClose, onUpdate, editable =
       }
     };
 
-    const handleConfirm = () => {
-      const now = new Date().toLocaleString('tr-TR');
-      const not = `💰 Tahsilat alındı (${selectedPaymentMethod}) → TL: ${finalPayment.tl}, USD: ${finalPayment.usd}, EUR: ${finalPayment.eur} (${now})`;
-      const updatedNotes = [...notes, not];
-      setNotes(updatedNotes);
-      setShowFinalPayment(false);
-      saveChanges();
-    };
+   const handleConfirm = async () => {
+  const now = new Date().toLocaleString('tr-TR');
+  const not = `💰 Tahsilat alındı (${selectedPaymentMethod}) → TL: ${finalPayment.tl}, USD: ${finalPayment.usd}, EUR: ${finalPayment.eur} (${now})`;
+  const updatedNotes = [...notes, not];
+
+  const previousDeposit = parseFloat(reservation.deposit) || 0;
+  const total = parseFloat(reservation.total) || 0;
+  const newDeposit = previousDeposit + finalPayment.tl;
+  const newRemaining = Math.max(0, total - newDeposit);
+
+  const updatedReservation = {
+    ...reservation,
+    deposit: newDeposit,
+    remaining: newRemaining,
+    notes: updatedNotes
+  };
+
+  try {
+    await api.put(`/reservations/${reservation._id}`, updatedReservation);
+    setReservation(updatedReservation);
+    setNotes(updatedNotes);
+    setShowFinalPayment(false);
+    alert('✅ Tahsilat kaydedildi!');
+    onUpdate();
+    onClose();
+  } catch (error) {
+    console.error('❌ Tahsilat güncelleme hatası:', error);
+    alert('Tahsilat kaydedilemedi!');
+  }
+};
+
 
     return (
       <div className="modal-body">

@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import api from '../api/axiosInstance';
 import CalendarGrid from '../components/CalendarGrid';
 import ReservationModal from '../components/ReservationModal';
+import Sidebar from '../components/Sidebar'; // 🔥 Sidebar bileşeni eklendi
 import './DashboardPage.css';
 
 function DashboardPage() {
   const [user, setUser] = useState(null);
-  const [menuOpen, setMenuOpen] = useState(true);
   const [reservations, setReservations] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState('');
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedReservation, setSelectedReservation] = useState(null);
-
-  const toggleMenu = () => setMenuOpen(prev => !prev);
 
   const normalizeDate = (date) => {
     const d = new Date(date);
@@ -45,9 +42,6 @@ function DashboardPage() {
           api.get(`/reservations?userId=${userId}`),
         ]);
 
-        console.log('🔄 Oda Verileri:', resRooms.data);
-        console.log('🔄 Rezervasyon Verileri:', resReservations.data);
-
         setRooms(resRooms.data);
         setReservations(resReservations.data);
       } catch (err) {
@@ -56,10 +50,7 @@ function DashboardPage() {
     };
 
     if (userId) {
-      console.log('✅ Kullanıcı ID:', userId);
       fetchData();
-    } else {
-      console.warn('⚠️ userId localStorage içinde bulunamadı!');
     }
   }, [userId]);
 
@@ -68,13 +59,6 @@ function DashboardPage() {
   const activeStays = reservations.filter(r =>
     normalizeDate(r.checkIn) <= today && normalizeDate(r.checkOut) > today
   );
-
-  useEffect(() => {
-    console.log('📅 Bugünün tarihi:', today);
-    console.log('📥 Bugünkü girişler:', todaysCheckIns);
-    console.log('📤 Bugünkü çıkışlar:', todaysCheckOuts);
-    console.log('🏨 Aktif konaklamalar:', activeStays);
-  }, [reservations]);
 
   const filteredReservations = selectedRoom
     ? reservations.filter(r => r.roomNo === selectedRoom)
@@ -95,25 +79,16 @@ function DashboardPage() {
     setSelectedReservation(null);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = '/';
+  };
+
   return (
     <div className="dashboard-container">
-      <div className="toggle-button" onClick={toggleMenu}>
-        {menuOpen ? <FaTimes /> : <FaBars />}
-      </div>
-
-      <aside className={`sidebar ${menuOpen ? 'open' : 'closed'}`}>
-        <ul className="menu">
-          <li><Link to="/"><span role="img" aria-label="home">🏠</span> {menuOpen && 'Ana Sayfa'}</Link></li>
-          <li><Link to="/check-in-out"><span role="img" aria-label="door">🚪</span> {menuOpen && 'Giriş / Çıkış'}</Link></li>
-          <li><Link to="/reservations"><span role="img" aria-label="calendar">📅</span> {menuOpen && 'Rezervasyonlar'}</Link></li>
-          <li><Link to="/availability"><span role="img" aria-label="calendar">📆</span> {menuOpen && 'Müsaitlik'}</Link></li>
-          <li><Link to="/rooms"><span role="img" aria-label="house">🏠</span> {menuOpen && 'Odalar'}</Link></li>
-          <li><Link to="/accounting"><span role="img" aria-label="money">💰</span> {menuOpen && 'Ön Muhasebe'}</Link></li>
-          <li><Link to="/agencies"><span role="img" aria-label="globe">🌐</span> {menuOpen && 'Acenteler'}</Link></li>
-          <li><Link to="/settings"><span role="img" aria-label="gear">⚙️</span> {menuOpen && 'Ayarlar'}</Link></li>
-          <li><Link to="/support"><span role="img" aria-label="tools">🛠️</span> {menuOpen && 'Destek'}</Link></li>
-        </ul>
-      </aside>
+      {/* ✅ Sidebar artık buradan geliyor */}
+      <Sidebar onLogout={handleLogout} />
 
       <main className="dashboard-main">
         <h1>🎉 Hoş geldiniz, {user?.email?.split('@')[0] || 'Misafir'}!</h1>

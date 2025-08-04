@@ -8,31 +8,30 @@ function CalendarGrid({ year, month, reservations, onDayClick }) {
   const jsDay = firstDayOfMonth.getDay();
   const startDay = jsDay === 0 ? 6 : jsDay - 1;
 
+  // ✅ Tarihi 'YYYY-MM-DD' formatına çeviriyoruz (UTC etkisinden kurtulmak için)
   const normalizeDate = (date) => {
     const d = new Date(date);
     d.setHours(0, 0, 0, 0);
-    return d;
+    return d.toISOString().split('T')[0];
   };
 
   const getDayStatus = (day) => {
-    const targetDate = new Date(year, month, day);
-    const normalizedTarget = normalizeDate(targetDate);
+    const targetDate = normalizeDate(new Date(year, month, day));
 
     return reservations.some((res) => {
       const checkIn = normalizeDate(res.checkIn);
       const checkOut = normalizeDate(res.checkOut);
-      return normalizedTarget >= checkIn && normalizedTarget < checkOut;
+      return targetDate >= checkIn && targetDate < checkOut;
     }) ? 'dolu' : 'bos';
   };
 
   const getReservationForDay = (day) => {
-    const targetDate = new Date(year, month, day);
-    const normalizedTarget = normalizeDate(targetDate);
+    const targetDate = normalizeDate(new Date(year, month, day));
 
     return reservations.find((res) => {
       const checkIn = normalizeDate(res.checkIn);
       const checkOut = normalizeDate(res.checkOut);
-      return normalizedTarget >= checkIn && normalizedTarget < checkOut;
+      return targetDate >= checkIn && targetDate < checkOut;
     });
   };
 

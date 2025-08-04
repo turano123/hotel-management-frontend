@@ -7,6 +7,8 @@ import DashboardPage from './pages/DashboardPage';
 import RoomsPage from './pages/RoomsPage';
 import ReservationsPage from './pages/ReservationsPage';
 import AvailabilityPage from './pages/AvailabilityPage';
+import OnMuhasebePage from './pages/OnMuhasebePage'; // ✅ yeni sayfa eklendi
+import TelegramSettings from './pages/TelegramSettings'; // ✅ telegram sayfası import edildi
 
 import MainLayout from './components/MainLayout';
 
@@ -15,7 +17,6 @@ export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
 
   useEffect(() => {
-    // Sayfa değişince localStorage'dan token’ı tekrar kontrol et
     setIsAuthenticated(!!localStorage.getItem('token'));
   }, [location]);
 
@@ -42,6 +43,8 @@ export default function App() {
         <Route path="/rooms" element={<RoomsPage />} />
         <Route path="/reservations" element={<ReservationsPage />} />
         <Route path="/musaitlik" element={<AvailabilityPage />} />
+        <Route path="/on-muhasebe" element={<OnMuhasebePage />} /> {/* ✅ buraya eklendi */}
+        <Route path="/telegram-settings" element={<TelegramSettings />} /> {/* ✅ telegram rotası eklendi */}
       </Route>
 
       <Route path="*" element={<h1>404 – Sayfa Bulunamadı</h1>} />

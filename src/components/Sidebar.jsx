@@ -24,10 +24,6 @@ export default function Sidebar({ onLogout }) {
           <span role="img" aria-label="ev">🏠</span>
           <span className="link-text">Ana Sayfa</span>
         </NavLink>
-        <NavLink to="/giris-cikis" className={linkClass}>
-          <span role="img" aria-label="kapı">🔑</span>
-          <span className="link-text">Giriş / Çıkış</span>
-        </NavLink>
         <NavLink to="/reservations" className={linkClass}>
           <span role="img" aria-label="takvim">📋</span>
           <span className="link-text">Rezervasyonlar</span>
@@ -52,9 +48,11 @@ export default function Sidebar({ onLogout }) {
           <span role="img" aria-label="ayar">⚙️</span>
           <span className="link-text">Ayarlar</span>
         </NavLink>
-        <NavLink to="/destek" className={linkClass}>
-          <span role="img" aria-label="destek">🛠️</span>
-          <span className="link-text">Destek</span>
+
+        {/* Telegram menüsü eklendi */}
+        <NavLink to="/telegram-settings" className={linkClass}>
+          <span role="img" aria-label="telegram">✈️</span>
+          <span className="link-text">Telegram</span>
         </NavLink>
       </nav>
 

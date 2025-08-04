@@ -1,0 +1,160 @@
+.muhasebe-container {
+  padding: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', sans-serif;
+  color: #1f2937;
+  background-color: #f9fafb;
+}
+
+/* Başlık */
+.muhasebe-container h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.summary-cards {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.summary-cards .card {
+  flex: 1;
+  min-width: 240px;
+  background: #fff;
+  border-left: 6px solid #cbd5e1;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.summary-cards .gelir { border-color: #16a34a; }
+.summary-cards .gider { border-color: #dc2626; }
+.summary-cards .net   { border-color: #0ea5e9; }
+
+/* Filtre alanı */
+.filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.filters select,
+.filters input {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
+  min-width: 120px;
+}
+
+/* Export / Import */
+.export-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.export-buttons button,
+.import-button {
+  background: #1f7a8c;
+  color: white;
+  padding: 8px 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.import-button input[type="file"] {
+  display: none;
+}
+
+/* Tablo */
+.muhasebe-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.muhasebe-table th, .muhasebe-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  text-align: left;
+  font-size: 14px;
+}
+.muhasebe-table th {
+  background: #f3f4f6;
+  font-weight: bold;
+}
+.muhasebe-table tr.gelir {
+  background-color: #f0fdf4;
+}
+.muhasebe-table tr.gider {
+  background-color: #fef2f2;
+}
+.muhasebe-table button {
+  margin-right: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+.muhasebe-table button:hover {
+  opacity: 0.85;
+}
+.muhasebe-table button:nth-child(1) {
+  background: #3b82f6;
+  color: white;
+}
+.muhasebe-table button:nth-child(2) {
+  background: #ef4444;
+  color: white;
+}
+
+/* Form */
+.entry-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.entry-form input,
+.entry-form select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: white;
+}
+.entry-form button {
+  background-color: #10b981;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.entry-form button:hover {
+  background-color: #059669;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+  }
+  .summary-cards {
+    flex-direction: column;
+  }
+  .export-buttons {
+    flex-direction: column;
+  }
+}
