@@ -124,34 +124,25 @@ export default function Login() {
   };
 
   return (
-    <div className="login-wrapper" style={{ minHeight: "100vh", display: "grid", placeItems: "center" }}>
-      <div className="login-card card" style={{ width: 440, maxWidth: "92vw", padding: 20 }}>
-        {/* Brand */}
-        <div className="brand" style={{ display: "flex", gap: 10, alignItems: "center", justifyContent: "center", marginBottom: 10 }}>
-          <div className="dot" style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--brand)" }} />
-          <div style={{ fontWeight: 600 }}>HMS & Channels</div>
+    <div className="login-wrapper">
+      <div className="auth-card">
+        <div className="auth-header">
+          <div className="auth-brand">
+            <span className="dot" />
+            <span>HMS &amp; Channels</span>
+          </div>
+          <h1 className="auth-title">Panele Giriş</h1>
+          <p className="auth-subtitle">Master veya Otel kullanıcısı ile giriş yapın.</p>
         </div>
 
-        <h1 style={{ marginTop: 0, marginBottom: 6, fontSize: 22 }}>Panele Giriş</h1>
-        <div className="muted" style={{ marginBottom: 16 }}>Master veya Otel kullanıcısı ile giriş yapın.</div>
-
         {error && (
-          <div
-            className="card"
-            role="alert"
-            style={{
-              background: "rgba(239,68,68,.10)",
-              border: "1px solid rgba(239,68,68,.35)",
-              color: "#fecaca",
-              marginBottom: 12,
-            }}
-          >
+          <div className="card auth-alert" role="alert">
             {error}
           </div>
         )}
 
-        <form onSubmit={onSubmit} onKeyUp={handleKeyEvent} noValidate>
-          <label className="field" style={{ display: "block", marginBottom: 10 }}>
+        <form className="auth-form" onSubmit={onSubmit} onKeyUp={handleKeyEvent} noValidate>
+          <label className="field">
             <span className="field-label">E-posta</span>
             <input
               className="input"
@@ -169,65 +160,58 @@ export default function Login() {
             />
           </label>
 
-          <label className="field" style={{ display: "block", marginBottom: 8 }}>
+          <label className="field password-field">
             <span className="field-label">Şifre</span>
-            <div style={{ position: "relative" }}>
-              <input
-                ref={pwdRef}
-                className="input"
-                type={showPwd ? "text" : "password"}
-                placeholder="Şifre"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                onKeyUp={handleKeyEvent}
-                disabled={loading}
-                autoComplete="current-password"
-              />
-              <button
-                type="button"
-                className="btn"
-                onClick={() => setShowPwd((s) => !s)}
-                style={{ position: "absolute", right: 6, top: 6, height: 32, padding: "0 10px" }}
-                tabIndex={-1}
-                aria-label={showPwd ? "Şifreyi gizle" : "Şifreyi göster"}
-              >
-                {showPwd ? "Gizle" : "Göster"}
-              </button>
-            </div>
-            {caps && (
-              <div className="muted" style={{ color: "#f59e0b", marginTop: 6 }}>
-                Caps Lock açık görünüyor.
-              </div>
-            )}
+            <input
+              ref={pwdRef}
+              className="input"
+              type={showPwd ? 'text' : 'password'}
+              placeholder="Şifre"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyUp={handleKeyEvent}
+              disabled={loading}
+              autoComplete="current-password"
+            />
+            <button
+              type="button"
+              className="btn ghost toggle"
+              onClick={() => setShowPwd((s) => !s)}
+              tabIndex={-1}
+              aria-label={showPwd ? 'Şifreyi gizle' : 'Şifreyi göster'}
+            >
+              {showPwd ? 'Gizle' : 'Göster'}
+            </button>
+            {caps && <div className="caps-warning">Caps Lock açık görünüyor.</div>}
           </label>
 
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-            <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div className="remember-row">
+            <label>
               <input
                 type="checkbox"
                 checked={remember}
                 onChange={(e) => setRemember(e.target.checked)}
                 disabled={loading}
               />
-              <span className="muted">Beni hatırla</span>
+              <span>Beni hatırla</span>
             </label>
-            <div className="muted" style={{ fontSize: 12 }}>Güvenilmeyen cihazlarda şifre kaydetmeyin.</div>
+            <span className="security-note">Güvenilmeyen cihazlarda şifre kaydetmeyin.</span>
           </div>
 
-          <button className="btn primary" style={{ width: "100%", marginBottom: 10 }} disabled={loading}>
-            {loading ? "Giriş yapılıyor…" : "Giriş yap"}
+          <button className="btn primary auth-submit" disabled={loading}>
+            {loading ? 'Giriş yapılıyor…' : 'Giriş yap'}
           </button>
         </form>
 
         {samples.length > 0 && (
-          <>
-            <div className="muted" style={{ margin: "6px 0 8px" }}>Örnek kullanıcılar (DEV):</div>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <div className="auth-footer" aria-live="polite">
+            <div className="divider"><span>Örnek kullanıcılar (DEV)</span></div>
+            <div className="samples">
               {samples.map((s) => (
                 <button
                   key={s.tag}
                   type="button"
-                  className="btn"
+                  className="btn outline"
                   onClick={() => fill(s)}
                   disabled={loading}
                   title={`${s.email} / ${s.pass}`}
@@ -236,12 +220,12 @@ export default function Login() {
                 </button>
               ))}
             </div>
-            <div className="muted" style={{ marginTop: 14, fontSize: 12, lineHeight: 1.4 }}>
+            <p className="auth-note">
               Örnekler: <b>master@demo.local / Master123!</b> — <b>hotel1@demo.local / Demo123!</b>
-            </div>
-          </>
+            </p>
+          </div>
         )}
       </div>
     </div>
-  );
+  )
 }

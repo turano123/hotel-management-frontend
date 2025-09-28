@@ -1,12 +1,13 @@
 import React from 'react'
-export default function Header({ title, subtitle, right }){
+
+export default function Header({ title, subtitle, right }) {
   return (
-    <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
-      <div>
-        <div className="muted" style={{fontSize:12}}>{subtitle}</div>
-        <h2 style={{margin:'6px 0'}}>{title}</h2>
+    <div className="page-heading">
+      <div className="page-heading__titles">
+        {subtitle && <div className="page-heading__subtitle">{subtitle}</div>}
+        <h2 className="page-heading__title">{title}</h2>
       </div>
-      <div>{right}</div>
+      {right ? <div className="page-heading__actions">{right}</div> : null}
     </div>
   )
 }
